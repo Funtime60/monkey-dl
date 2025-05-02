@@ -32,14 +32,14 @@ class KwikExtractor:
     def __set_token(self, response_text):
         data = re.search("[\S]+\",[\d]+,\"[\S]+\",[\d]+,[\d]+,[\d]+", response_text).group(0)
         parameters = data.split(",")
-        para1 = parameters[0].strip("\"")
-        para2 = int(parameters[1])
-        para3 = parameters[2].strip("\"")
-        para4 = int(parameters[3])
-        para5 = int(parameters[4])
-        para6 = int(parameters[5])
+        payload = parameters[0].strip("\"")
+        unusedPara1 = int(parameters[1])
+        keyString = parameters[2].strip("\"")
+        unusedPara3 = int(parameters[3])
+        keyIndex = int(parameters[4])
+        unusedOutput = int(parameters[5])
 
-        page_data = kwik_token_extractor.extract_data(para1, para2, para3, para4, para5, para6)
+        page_data = kwik_token_extractor.extract_data(payload, unusedPara1, keyString, unusedPara3, keyIndex, unusedOutput)
         page_data = BeautifulSoup(page_data, "html.parser")
 
         input_field = page_data.find("input", attrs={"name": "_token"})
